@@ -4,4 +4,4 @@
 
 #### [3 Сценарий: потверждение по email]
 
-https://www.youtube.com/watch?v=xa-UuuoqdiM
+https://youtu.be/kMLzsGm07G8
