@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <title>Главная</title>
+    {% include "patterns/head.html" %}
+</head>
+
+
+
+<body>
+    {% include "patterns/navbar.html" %}
+    <div class="article-clean">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2" style="font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';">
+                    <div class="intro">
+                        <h1 class="text-center" style="font-family: Lora, serif;">Textrewind - помощник для чтения</h1>
+                        <img class="img-fluid" src="{% static 'assets/img/desk.jpg'%}" />
+                    </div>
+                    <div class="text" style="font-family: Lora, serif;">
+                        <h2 >Куда я попал?</h2>
+                        <p>Мы являемся проектом, призванным помочь тебе читать любую информацию быстрее с помощью технологии Rapid serial visual presentation<br /></p>
+                    </div>
+
+                    <div class="text" style="font-family: Lora, serif; margin: 0px 0px 50px 0px">
+                        <h2>А как это работает у вас?</h2>
+                        <p>Выделите любой текст на этой странице и нажмите ctrl + alt + e, чтобы выключить режим чтения зажми комбинацию клавиш повторно<br /></p>
+                        <h2>Какие премиущества у вашей технологии?</h2>
+                        <p>Учёные из Университета Карнеги — Меллон установили, что быстрое последовательное визуальное предъявление позволяет достичь пиковой скорости чтения на английском языке в 720 слов в минуту (12 в секунду). Или, что также очень важно, позволяет повысить скорость чтения на 33 % по сравнению с нормальной без существенной потери понимания материала.<br /></p>
+                        <h2>Не навредит ли технология усваиваемости информации?</h2>
+                        <p>Исследования в Уичитском университете показали, что при быстром последовательном визуальном предъявлении английского текста на скорости 250 слов в минуту, понимание лишь незначительно ухудшилось по сравнению с обычным чтением с экрана электронной книги. Предъявление же со скоростью 650 слов в минуту снизило понимание с 74,6 % до 52,1 % по сравнению с 250 словами в минуту, что тоже хороший результат.<br /></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+    <script src="{% static 'assets/js/textrewind.js'%}"></script>
+</body>
+
+</html>

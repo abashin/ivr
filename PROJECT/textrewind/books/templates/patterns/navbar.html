@@ -1,0 +1,31 @@
+{% if user.is_authenticated %}
+
+<nav class="navbar navbar-light navbar-expand-md  sticky-top navigation-clean">
+    <div class="container"><a class="navbar-brand" href="/" style="color: #cc3333;font-family: Lora, serif;">textrewind</a><button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div
+            class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li role="presentation" class="nav-item"><a class="nav-link" href="/catalog">Каталог книг</a></li>
+                <li role="presentation" class="nav-item"><a class="nav-link" href="/new_book">Загрузить книгу</a></li>
+                <li role="presentation" class="nav-item"><a class="nav-link" href="/my_books">Личный кабинет</a></li>
+            </ul>
+    </div>
+    </div>
+</nav>
+
+{% else %}
+
+<nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean">
+    <div class="container"><a class="navbar-brand" href="/" style="color: #cc3333;font-family: Lora, serif;">textrewind</a><button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div
+            class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li role="presentation" class="nav-item"><a class="nav-link" href="/catalog">Каталог книг</a></li>
+                <li role="presentation" class="nav-item"><a class="nav-link" href="/signup">Зарегистрироваться</a></li>
+            </ul>
+    </div>
+    </div>
+</nav>
+
+
+{% endif %}

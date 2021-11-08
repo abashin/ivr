@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <title>Каталог textrewind</title>
+    {% include "patterns/head.html" %}
+    <style>
+        img.img-fluid {
+            width: 217px;
+            height: 340px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    {% include "patterns/navbar.html" %}
+    <div class="article-clean">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2 text-center">
+                    <div class="intro">
+                        <h1 class="text-center">Книжный каталог textrewind</h1>
+                    </div>
+                    <div class="text">
+                        <p>Тут собраны книги, которые загрузили наши пользователи и отметили их доступными для прочтения другим, и теперь вы можете добавить их к себе в личный кабинет, не занимаясь поиском файла книги.<br /></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-xl-flex">
+        <div class="container d-xl-flex justify-content-xl-center">
+            <div class="row">
+                <div class="col-md-12 d-flex d-sm-flex justify-content-center justify-content-sm-center" style="margin: 20px 0px 0px 0px;">
+                    <div class="float-left float-md-right d-xl-flex justify-content-xl-center mt-5 mt-md-0 search-area">
+                        <i class="fas fa-search float-left search-icon" style="color: rgb(166,168,170);"></i>
+                        <form action="{% url 'search' %}" target="_self" ><input class="float-left float-sm-right custom-search-input" type="search" id="search-field" name="q" placeholder="Поиск по книгам" style="color: rgb(166,168,170);font-family: Lora, serif;" /></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if not book_list %}
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center" style="color: rgb(86,88,91);font-family: Lora, serif;margin: 75px 0px 0px;">К сожалению, ничего не найдено</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="article-list">
+        <div class="container">
+            <div class="row justify-content-center articles">
+                {% for book in book_list %}
+                <div class="col-sm-6 col-md-4 col-xl-3 item" style="margin: 0px 1px;padding: 40px 15px 0px;"><a href="{% url 'book' book.id %}"><img class="img-fluid"  src="{{ book.book_image.url }}" /></a>
+                    <a href="{% url 'book' book.id %}" class="text-decoration-none"><h3 class="name" style="font-family: Lora, serif;">{{ book.title }}</h3></a>
+                    <a href="{% url 'book' book.id %}" class="text-decoration-none"><p class="description">{{ book.author }}<br /></p></a>
+                    {% if request.user != book.creator %}
+                        {% if user.is_authenticated %}
+                            {% if request.user in book.additions.all %}
+                                <a class="action" href="/add/{{book.id}}" style="color: rgb(125,130,133);"><i class="material-icons">highlight_off</i></a>
+                            {% else %}
+                                <a class="action" href="/add/{{book.id}}" style="color: rgb(125,130,133);"><i class="material-icons">control_point</i></a>
+                            {% endif %}
+                        {% else %}
+                            <a class="action" href="/signup" style="color: rgb(125,130,133);"><i class="material-icons">control_point</i></a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

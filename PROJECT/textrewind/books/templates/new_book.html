@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+    <title>Загрузить книгу</title>
+    {% include "patterns/head.html" %}
+</head>
+
+<style>
+    #uploadPreview{
+        margin: 10px;
+        padding: 0;
+        position: relative;
+        width:190px;
+        height:190px;
+        background: #eaeaea;
+    }
+
+    #uploadPreview img{
+        position: absolute;
+        left:50%;
+        top:50%;
+        transform: translate(-50%, -50%);
+        max-width:100%;
+        max-height: 100%;
+    }
+
+    #file {
+      display: none;
+    }
+
+
+</style>
+
+<script>
+    $(document).ready(function() {
+      $('select').niceSelect();
+    });
+
+    $(document).ready( function() {
+        $('#book').change(function() {
+            $('#filetext').text($('#book')[0].files[0].name);
+            $("#book-textarea").css("display", "none");
+            $("#book-textarea-description").css("display", "none");
+        });
+    });
+
+
+
+</script>
+
+
+<body>
+    {% include "patterns/navbar.html" %}
+    <div class="article-clean">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2 text-center">
+                    <div class="intro">
+                        <h1 class="text-center">Добавление новой книги</h1>
+                    </div>
+                    <div class="text">
+                        <p>Тут вы можете добавить книгу. Если хотите, чтобы ваша книга отображалась в каталоге, то отметьте пункт &quot;Отображение в каталоге&quot; активным.<br /></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="article-list">
+        <div class="container">
+            <div class="row d-lg-flex justify-content-lg-center articles">
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-5 text-center item">
+                    <form action="/new_book/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                        <div class="input-group input-group">
+                            <div class="input-group-prepend"><span class="input-group-text" style="margin: 0px 102px 0px 0px; color: rgb(125,130,133);background-color: rgb(255,255,255); border-color: rgb(255,255,255);font-size: 1rem; height: 42px;">Название книги:</span></div>
+                            <input type="text" class="form-control" style="text-align: center; border-radius: 5px 5px 5px 5px; border: 1px solid #ced4da; outline:none;" name="title" required="" >
+                        </div>
+
+                        <div class="input-group input-group" style="margin: 25px 0px 0px 0px;">
+                            <div class="input-group-prepend"><span class="input-group-text" style="margin: 0px 130px 0px 0px; color: rgb(125,130,133);background-color: rgb(255,255,255); border-color: rgb(255,255,255);font-size: 1rem; height: 42px;">Автор книги:</span></div>
+                            <input type="text" class="form-control" style="text-align: center; border-radius: 5px 5px 5px 5px; border: 1px solid #ced4da; outline:none;" name="author"  required="" >
+                            <div class="input-group-append"></div>
+                        </div>
+                        <div class="input-group" style="margin: 25px 0px 0px 0px;">
+                            <div class="input-group-prepend"><span class="input-group-text" style="margin: 0px 123px 0px 0px; color: rgb(125,130,133);background-color: rgb(255,255,255); border-color: rgb(255,255,255);font-size: 1rem; height: 42px;">Жандр книги:</span></div>
+                            <select name="gendre" >
+                              <option>Детектив</option>
+                              <option>Фантастика</option>
+                              <option>Приключения</option>
+                              <option>Роман</option>
+                              <option>Научная литература</option>
+                              <option>Фольклор</option>
+                              <option>Юмор</option>
+                              <option>Справочная литература</option>
+                              <option>Детская литература</option>
+                              <option>Документальная литература</option>
+                              <option>Религиозная литература</option>
+                              <option>Техника</option>
+                              <option>Учебная литература</option>
+                            </select>
+                            <div class="input-group-append"></div>
+                        </div>
+                        <div class="input-group" style="margin: 25px 0px 0px 10px;color: rgb(104,107,109);">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input form-control" name="public_active" id="customCheck1">
+                              <label class="custom-control-label" for="customCheck1">Отображение в каталоге</label>
+                            </div>
+                        </div>
+                        <div class="custom-file" id="customFile" lang="es" style="margin: 70px 0px 0px;">
+                            <label  for="file" class="btn border" class="form-control" style="color: rgb(104,107,109); border-radius: 5px 5px 5px 5px;"  >Выберите изображение для обложки книги</label>
+                            <input id="file" accept="image/jpeg,image/png" type="file" aria-describedby="fileHelp" name="book_image" required>
+                        </div>
+
+                        <div class="card" style="width: 212px;margin: 25px 0px 0px 120px;">
+                                <div id="uploadPreview"></div>
+                        </div>
+
+                        <div class="custom-file" id="customFile" lang="es" style="margin: 70px 0px 0px;">
+                            <label for="book" id="bntUpload" class="btn border" style="color: rgb(104,107,109); border-radius: 5px 5px 5px 5px;" >Выберите файл книги в формате txt</label>
+                            <label><input id="book" accept="text/plain" class="form-control" aria-describedby="fileHelp" type="file" name="book_file" style="display: none"></label>
+                            <p class="description" id="filetext" style="font-size: 16px;margin: 25px 0px 0px;"><br /></p>
+
+                        </div>
+
+                        <p class="description" id="book-textarea-description" style="font-size: 16px;margin: 25px 0px 0px;">Или просто введите текст ниже:<br /></p>
+
+                        <div class="input-group" style="font-family: Lora, serif;margin: 25px 0px 0px;">
+                            <textarea rows="6" id="book-textarea" name="book_text" class="form-control" style="border-radius: 5px 5px 5px 5px; border: 1px solid #ced4da;"></textarea>
+                        </div>
+                        </div>
+
+                        <div class="col text-center" style="font-family: Lora, serif;margin: 70px 0px 40px 0px; padding: 0px;">
+                            <button class="btn border rounded-0" type="submit" role="button">Готово</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+                var showFile = (function () {
+                    var fr = new FileReader,
+                        i = 0,
+                        files, file;
+
+                    fr.onload = function (e) {
+                        var li;
+                        if (file.type.match('image.*')) {
+                            li = document.createElement('li');
+                            li.innerHTML = "<img src='" + e.target.result + "' >";
+                            document.getElementById('list').appendChild(li);
+                        }
+                            file = files[++i];
+                            if (file) {
+                                fr.readAsDataURL(file)
+                            } else {
+                                i = 0;
+                            }
+                    }
+
+                    return function (e) {
+                        files = e.target.files;
+                        file = files[i];
+                        if (files) {
+                            while (i < files.length && !file.type.match('image.*')) {
+                                file = files[++i];
+                            }
+                            if (file) fr.readAsDataURL(files[i])
+                        }
+                    }
+
+                })()
+
+                document.getElementById('files').addEventListener('change', showFile, false);
+
+
+
+
+</script>
+
+
+<script>
+
+                var _URL = window.URL || window.webkitURL;
+
+                $("#file").change(function(e) {
+                    var image, file;
+                    if ((file = this.files[0])) {
+                        image = new Image();
+                        image.onload = function() {
+                    src = this.src;
+                        $('#uploadPreview').html('<img src="'+ src +'"></div>');
+                    e.preventDefault();
+                   }
+                        };
+                        image.src = _URL.createObjectURL(file);
+                });
+
+</script>
+</html>

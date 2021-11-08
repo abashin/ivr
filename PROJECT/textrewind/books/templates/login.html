@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <title>Вход</title>
+    {% include "patterns/head.html" %}
+</head>
+
+<body>
+    {% include "patterns/navbar.html" %}
+    <div class="login-clean" style="background-color: #ffffff;">
+        <form class="border rounded-0" method="post" style="padding: 40px 40px 20px 40px;">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration">
+                <h2>Вход</h2>
+            </div>
+
+            {% csrf_token %}
+
+
+
+            <div class="form-group">{{ form.username }}
+            {% if form.errors.username.as_text != form.errors.password2.as_text %}
+             <div class="invalid-feedback d-block">
+                <p>{{ form.username.errors }}</p>
+              </div>
+            {% endif %}
+            </div>
+
+            <div class="form-group">{{ form.password }}
+            <div class="invalid-feedback d-block">
+            {% if form.errors.password2.as_text != form.errors.email.as_text %}
+                <p>{{ form.errors.password }}</p>
+            {% endif %}
+            </div></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: #282d32;margin: 40px 0px 0px 0px;">Войти</button></div>
+            <a class="forgot" href="/password-reset">Забыли пароль?</a>
+        </form>
+        <form class="border rounded-0" method="post" style="padding: 20px 40px 20px 40px;">
+            <h2 class="sr-only">Login Form</h2><a class="forgot" href="/signup" style="padding: 0px;margin: 0px 0px 0px 0px;opacity: 1;font-size: 19px;color: #7d8285;">Зарегистироваться</a></form>
+    </div>
+</body>
+
+</html>
